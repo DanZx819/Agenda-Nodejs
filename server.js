@@ -51,10 +51,11 @@ app.use(csrf());
 app.use(middlewareGlobal, checkCsrfError, csrfMiddleware);
 app.use(routes);
 
+let serverReady = false;
+
 app.on("pronto", () => {
-  const porta = 3000;
-  app.listen(porta, () => {
-    console.log(`Acessar http://localhost:${porta}`);
-    console.log(`Servidor executando na porta ${porta} \nCTRL + C para parar!`);
-  });
+  serverReady = true;
 });
+
+// Exporta para a Vercel
+module.exports = app;
